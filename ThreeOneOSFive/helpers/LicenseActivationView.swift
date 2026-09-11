@@ -36,16 +36,16 @@ struct LicenseActivationView: View {
 
                             VStack(spacing: 16) {
                                 HStack(spacing: 10) {
-                                    Image(systemName: manager.isBusy ? "arrow.triangle.2.circlepath" : "key.fill")
+                                    Image(systemName: "key.fill")
                                         .foregroundStyle(AppTheme.secondaryAccent)
                                         .font(.system(size: 16, weight: .bold))
-                                    Text(manager.isBusy ? "Connecting to KeyAuth..." : "KeyAuth License Required")
+                                    Text("License Required")
                                         .font(.system(size: 16, weight: .black, design: .rounded))
                                         .foregroundStyle(.white)
                                     Spacer()
                                 }
 
-                                Text("Enter your KeyAuth license key to activate Cryptroic")
+                                Text("Enter your license key to activate Cryptroic")
                                     .font(.system(size: 13, weight: .medium, design: .rounded))
                                     .foregroundStyle(.white.opacity(0.68))
                                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -72,7 +72,7 @@ struct LicenseActivationView: View {
                                 Button(action: activate) {
                                     HStack(spacing: 9) {
                                         Image(systemName: manager.isBusy ? "hourglass" : "checkmark.shield.fill")
-                                        Text(manager.isBusy ? "VERIFYING WITH KEYAUTH..." : "VERIFY AND CONTINUE")
+                                        Text(manager.isBusy ? "VERIFYING..." : "VERIFY AND CONTINUE")
                                     }
                                     .font(.system(size: 14, weight: .black, design: .rounded))
                                     .foregroundStyle(.white)
