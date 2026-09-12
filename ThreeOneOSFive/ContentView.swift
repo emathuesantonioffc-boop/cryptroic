@@ -9,7 +9,7 @@ struct ContentView: View {
     @State private var showCleaner = false
     @StateObject private var patchStore = PatchProjectStore()
     @State private var patchOperationBusy = false
-    @State private var patchMessage = "READY — SELECT A PATCH"
+    @State private var patchMessage = "PRONTO — SELECIONE UM PATCH"
     @State private var selectedGame: GameMode = .normal
     // FF Normal states
     @State private var aimDragEnabled = false
@@ -69,7 +69,7 @@ struct ContentView: View {
         .onChange(of: scenePhase) { phase in
             guard phase == .active, !patchOperationBusy else { return }
             syncPatchStates()
-            patchMessage = "READY — SELECT A PATCH"
+            patchMessage = "PRONTO — SELECIONE UM PATCH"
         }
     }
 
@@ -80,7 +80,7 @@ struct ContentView: View {
                     .font(.system(size: 25, weight: .black, design: .rounded))
                     .tracking(3)
                     .foregroundStyle(.white)
-                Text("PATCH CONTROL CENTER")
+                Text("CENTRAL DE PATCHES")
                     .font(.system(size: 10, weight: .bold, design: .rounded))
                     .tracking(1.7)
                     .foregroundStyle(AppTheme.accent)
@@ -105,10 +105,10 @@ struct ContentView: View {
 
     private var devicePanel: some View {
         VStack(spacing: 0) {
-            panelTitle("DEVICE STATUS", icon: "shield.lefthalf.filled")
+            panelTitle("STATUS DO DISPOSITIVO", icon: "shield.lefthalf.filled")
             statusRow(icon: "apple.logo", title: "iOS", value: AppInfo.osVersion, color: AppTheme.secondaryAccent)
-            statusRow(icon: "iphone", title: "Device", value: AppInfo.displayMachineName, color: AppTheme.secondaryAccent)
-            statusRow(icon: "checkmark.seal.fill", title: "Support", value: appState.isSupported ? "SUPPORTED" : "UNSUPPORTED", color: appState.isSupported ? .green : .red)
+            statusRow(icon: "iphone", title: "Dispositivo", value: AppInfo.displayMachineName, color: AppTheme.secondaryAccent)
+            statusRow(icon: "checkmark.seal.fill", title: "Suporte", value: appState.isSupported ? "SUPORTADO" : "NÃO SUPORTADO", color: appState.isSupported ? .green : .red)
         }
         .padding(16)
         .background(Color.black.opacity(0.42), in: RoundedRectangle(cornerRadius: 24, style: .continuous))
@@ -118,9 +118,9 @@ struct ContentView: View {
     private var patchOptions: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                panelTitle("PATCH OPTIONS", icon: "bolt.fill")
+                panelTitle("OPÇÕES DE PATCH", icon: "bolt.fill")
                 Spacer()
-                Text("SELECT TO ENABLE")
+                Text("SELECIONE PARA ATIVAR")
                     .font(.system(size: 9, weight: .bold, design: .rounded))
                     .foregroundStyle(.white.opacity(0.45))
             }
@@ -139,7 +139,7 @@ struct ContentView: View {
 
             HStack(spacing: 8) {
                 Circle().fill(patchMessage.localizedCaseInsensitiveContains("successful") ? .green : AppTheme.accent).frame(width: 7, height: 7)
-                Text(patchOperationBusy ? "PROCESSING PATCH…" : patchMessage)
+                Text(patchOperationBusy ? "PROCESSANDO PATCH…" : patchMessage)
                     .font(.system(size: 10, weight: .bold, design: .rounded))
                     .foregroundStyle(.white.opacity(0.72))
                     .lineLimit(2)
@@ -159,14 +159,14 @@ struct ContentView: View {
 
     private var gameLaunchPanel: some View {
         VStack(alignment: .leading, spacing: 12) {
-            panelTitle("LAUNCH GAME", icon: "arrow.up.forward.app.fill")
+            panelTitle("INICIAR JOGO", icon: "arrow.up.forward.app.fill")
             HStack(spacing: 12) {
                 launchButton(title: "FF NORMAL", subtitle: "Free Fire Normal", color: AppTheme.accent, scheme: "freefireth")
             }
             Button {
                 showCleaner = true
             } label: {
-                Label("Clean Cache & Temp", systemImage: "trash.slash.fill")
+                Label("Limpar Cache e Temp", systemImage: "trash.slash.fill")
                     .font(.system(size: 13, weight: .black, design: .rounded))
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity, minHeight: 52)
@@ -239,7 +239,7 @@ struct ContentView: View {
 
     private var developerCredits: some View {
         VStack(spacing: 10) {
-            Text("Developed by tefvx")
+            Text("Desenvolvido por tefvx")
                 .font(.system(size: 11, weight: .bold, design: .rounded))
                 .foregroundStyle(.white.opacity(0.72))
                 .multilineTextAlignment(.center)
@@ -507,7 +507,7 @@ private struct PatchUnlockPrompt: View {
                             .foregroundStyle(.red)
                     }
                 } footer: {
-                    Text("Enter the password once to unlock this tefvx package on this device.")
+                    Text("Digite a senha uma vez para desbloquear este pacote tefvx neste dispositivo.")
                 }
             }
             .navigationTitle("Unlock package")
