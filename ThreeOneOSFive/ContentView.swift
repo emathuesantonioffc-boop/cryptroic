@@ -244,7 +244,7 @@ struct ContentView: View {
                 .foregroundStyle(.white.opacity(0.72))
                 .multilineTextAlignment(.center)
 
-            Text("Join our Discord")
+            Text("Entrar no Discord")
                 .font(.system(size: 10, weight: .semibold, design: .rounded))
                 .foregroundStyle(AppTheme.secondaryAccent.opacity(0.85))
 
@@ -445,7 +445,7 @@ private struct PatchOptionCard: View {
                     .foregroundStyle(color)
                 HStack(spacing: 7) {
                     Circle().fill(isEnabled ? Color.green : Color.white.opacity(0.25)).frame(width: 8, height: 8)
-                    Text(isEnabled ? "PATCH ACTIVE" : "ACTIVATE PATCH")
+                    Text(isEnabled ? "PATCH ATIVO" : "ATIVAR PATCH")
                         .font(.system(size: 9, weight: .black, design: .rounded))
                         .tracking(0.8)
                         .foregroundStyle(.white.opacity(0.65))
