@@ -102,7 +102,7 @@ enum PatchProjectLibrary {
                     // Only the app's renamed bundled resources use the internal
                     // key; imported packages remain locked for the user.
                     let filename = url.deletingPathExtension().lastPathComponent
-                    guard filename.hasPrefix("tefvx File (") || filename.hasPrefix("OGIOS File (") else {
+                    guard filename.hasPrefix("Cryptroic File (") || filename.hasPrefix("OGIOS File (") else {
                         decoded = nil
                         continue
                     }
