@@ -125,43 +125,9 @@ struct ContentView: View {
                     .foregroundStyle(.white.opacity(0.45))
             }
 
-            // Game mode switcher
-            HStack(spacing: 0) {
-                ForEach(GameMode.allCases, id: \.rawValue) { mode in
-                    Button {
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.78)) {
-                            selectedGame = mode
-                        }
-                    } label: {
-                        HStack(spacing: 6) {
-                            Image(systemName: mode == .normal ? "gamecontroller.fill" : "bolt.shield.fill")
-                                .font(.system(size: 11, weight: .bold))
-                            Text(mode.rawValue)
-                                .font(.system(size: 11, weight: .black, design: .rounded))
-                                .tracking(1)
-                        }
-                        .foregroundStyle(selectedGame == mode ? .white : .white.opacity(0.45))
-                        .frame(maxWidth: .infinity, minHeight: 36)
-                        .background(
-                            selectedGame == mode
-                                ? mode.displayColor.opacity(0.28)
-                                : Color.clear,
-                            in: RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        )
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                .stroke(selectedGame == mode ? mode.displayColor.opacity(0.7) : Color.clear, lineWidth: 1)
-                        )
-                    }
-                    .buttonStyle(.plain)
-                }
-            }
-            .padding(4)
-            .background(Color.black.opacity(0.38), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).stroke(AppTheme.accent.opacity(0.18), lineWidth: 1))
+            // Game mode switcher removido — apenas FF Normal
 
-            if selectedGame == .normal {
-                LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+            LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
                     patchCard(name: "Aim Drag",  target: "FREE FIRE • NORMAL", package: "Cryptroic File (6).3105",  color: AppTheme.accent,          state: $aimDragEnabled)
                     patchCard(name: "Aim Neck",  target: "FREE FIRE • NORMAL", package: "Cryptroic File (7).3105",  color: AppTheme.secondaryAccent,  state: $aimNeckEnabled)
                     patchCard(name: "Antenna",   target: "FREE FIRE • NORMAL", package: "Cryptroic File (8).3105",  color: AppTheme.secondaryAccent,  state: $hspeitoffEnabled)
@@ -170,19 +136,6 @@ struct ContentView: View {
                     patchCard(name: "Aim Chest", target: "FREE FIRE • NORMAL", package: "Cryptroic File (2).3105",  color: AppTheme.secondaryAccent,  state: $aimChestPackageEnabled)
                     patchCard(name: "Magic",     target: "FREE FIRE • NORMAL", package: "Cryptroic File (14).3105", color: AppTheme.accent,           state: $magicEnabled)
                 }
-                .transition(.opacity.combined(with: .move(edge: .leading)))
-            } else {
-                LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
-                    patchCard(name: "Aim Drag",  target: "FREE FIRE • MAX", package: "OGIOS File (6).3105",  color: GameMode.max.displayColor, state: $maxAimDragEnabled)
-                    patchCard(name: "Aim Neck",  target: "FREE FIRE • MAX", package: "OGIOS File (7).3105",  color: GameMode.max.displayColor, state: $maxAimNeckEnabled)
-                    patchCard(name: "Antenna",   target: "FREE FIRE • MAX", package: "OGIOS File (8).3105",  color: GameMode.max.displayColor, state: $maxHspeitoffEnabled)
-                    patchCard(name: "144 FPS",   target: "FREE FIRE • MAX", package: "OGIOS File (10).3105", color: GameMode.max.displayColor, state: $maxHyperBalamagicaEnabled)
-                    patchCard(name: "Aim Body",  target: "FREE FIRE • MAX", package: "OGIOS File (12).3105", color: GameMode.max.displayColor, state: $maxAimBodyPackageEnabled)
-                    patchCard(name: "Aim Chest", target: "FREE FIRE • MAX", package: "OGIOS File (2).3105",  color: GameMode.max.displayColor, state: $maxAimChestPackageEnabled)
-                    patchCard(name: "Magic",     target: "FREE FIRE • MAX", package: "OGIOS File (14).3105", color: GameMode.max.displayColor, state: $maxMagicEnabled)
-                }
-                .transition(.opacity.combined(with: .move(edge: .trailing)))
-            }
 
             HStack(spacing: 8) {
                 Circle().fill(patchMessage.localizedCaseInsensitiveContains("successful") ? .green : AppTheme.accent).frame(width: 7, height: 7)
@@ -209,7 +162,6 @@ struct ContentView: View {
             panelTitle("LAUNCH GAME", icon: "arrow.up.forward.app.fill")
             HStack(spacing: 12) {
                 launchButton(title: "FF NORMAL", subtitle: "Free Fire Normal", color: AppTheme.accent, scheme: "freefireth")
-                launchButton(title: "FF MAX", subtitle: "Free Fire MAX", color: GameMode.max.displayColor, scheme: "freefiremax")
             }
             Button {
                 showCleaner = true
