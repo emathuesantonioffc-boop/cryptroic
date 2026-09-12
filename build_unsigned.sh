@@ -32,6 +32,8 @@ done
 
 /usr/libexec/PlistBuddy -c "Set :CFBundleExecutable Cryptroic" "$APP/Info.plist" || true
 /usr/libexec/PlistBuddy -c "Set :CFBundlePackageType APPL" "$APP/Info.plist" || true
+/usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName tefvx" "$APP/Info.plist" || true
+/usr/libexec/PlistBuddy -c "Set :CFBundleName tefvx" "$APP/Info.plist" || true
 mkdir -p "$BUILD_DIR/Payload"
 cp -R "$APP" "$BUILD_DIR/Payload/"
 (
