@@ -128,13 +128,13 @@ struct ContentView: View {
             // Game mode switcher removido — apenas FF Normal
 
             LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
-                    patchCard(name: "Aim Drag",  target: "FREE FIRE • NORMAL", package: "tefvx File (6).3105",  color: AppTheme.accent,          state: $aimDragEnabled)
-                    patchCard(name: "Aim Neck",  target: "FREE FIRE • NORMAL", package: "tefvx File (7).3105",  color: AppTheme.accent, state: $aimNeckEnabled)
-                    patchCard(name: "Antenna",   target: "FREE FIRE • NORMAL", package: "tefvx File (8).3105",  color: AppTheme.accent, state: $hspeitoffEnabled)
-                    patchCard(name: "144 FPS",   target: "FREE FIRE • NORMAL", package: "tefvx File (10).3105", color: AppTheme.accent, state: $hyperBalamagicaEnabled)
-                    patchCard(name: "Aim Body",  target: "FREE FIRE • NORMAL", package: "tefvx File (12).3105", color: AppTheme.accent,           state: $aimBodyPackageEnabled)
-                    patchCard(name: "Aim Chest", target: "FREE FIRE • NORMAL", package: "tefvx File (2).3105",  color: AppTheme.accent, state: $aimChestPackageEnabled)
-                    patchCard(name: "Magic",     target: "FREE FIRE • NORMAL", package: "tefvx File (14).3105", color: AppTheme.accent,           state: $magicEnabled)
+                    patchCard(name: "Aim Drag",  target: "FREE FIRE • NORMAL", package: "Cryptroic File (6).3105",  color: AppTheme.accent,          state: $aimDragEnabled)
+                    patchCard(name: "Aim Neck",  target: "FREE FIRE • NORMAL", package: "Cryptroic File (7).3105",  color: AppTheme.accent, state: $aimNeckEnabled)
+                    patchCard(name: "Antenna",   target: "FREE FIRE • NORMAL", package: "Cryptroic File (8).3105",  color: AppTheme.accent, state: $hspeitoffEnabled)
+                    patchCard(name: "144 FPS",   target: "FREE FIRE • NORMAL", package: "Cryptroic File (10).3105", color: AppTheme.accent, state: $hyperBalamagicaEnabled)
+                    patchCard(name: "Aim Body",  target: "FREE FIRE • NORMAL", package: "Cryptroic File (12).3105", color: AppTheme.accent,           state: $aimBodyPackageEnabled)
+                    patchCard(name: "Aim Chest", target: "FREE FIRE • NORMAL", package: "Cryptroic File (2).3105",  color: AppTheme.accent, state: $aimChestPackageEnabled)
+                    patchCard(name: "Magic",     target: "FREE FIRE • NORMAL", package: "Cryptroic File (14).3105", color: AppTheme.accent,           state: $magicEnabled)
                 }
 
             HStack(spacing: 8) {
@@ -292,13 +292,13 @@ struct ContentView: View {
 
     private func syncPatchStates() {
         // FF Normal
-        aimDragEnabled            = isPatchActive("tefvx File (6).3105")
-        aimNeckEnabled            = isPatchActive("tefvx File (7).3105")
-        hspeitoffEnabled          = isPatchActive("tefvx File (8).3105")
-        hyperBalamagicaEnabled    = isPatchActive("tefvx File (10).3105")
-        aimBodyPackageEnabled     = isPatchActive("tefvx File (12).3105")
-        aimChestPackageEnabled    = isPatchActive("tefvx File (2).3105")
-        magicEnabled              = isPatchActive("tefvx File (14).3105")
+        aimDragEnabled            = isPatchActive("Cryptroic File (6).3105")
+        aimNeckEnabled            = isPatchActive("Cryptroic File (7).3105")
+        hspeitoffEnabled          = isPatchActive("Cryptroic File (8).3105")
+        hyperBalamagicaEnabled    = isPatchActive("Cryptroic File (10).3105")
+        aimBodyPackageEnabled     = isPatchActive("Cryptroic File (12).3105")
+        aimChestPackageEnabled    = isPatchActive("Cryptroic File (2).3105")
+        magicEnabled              = isPatchActive("Cryptroic File (14).3105")
         // FF MAX
         maxAimDragEnabled         = isPatchActive("OGIOS File (6).3105")
         maxAimNeckEnabled         = isPatchActive("OGIOS File (7).3105")
@@ -323,13 +323,13 @@ struct ContentView: View {
     private func setPatchState(for packageFilename: String, enabled: Bool) {
         switch packageFilename {
         // FF Normal
-        case "tefvx File (6).3105":  aimDragEnabled = enabled
-        case "tefvx File (7).3105":  aimNeckEnabled = enabled
-        case "tefvx File (8).3105":  hspeitoffEnabled = enabled
-        case "tefvx File (10).3105": hyperBalamagicaEnabled = enabled
-        case "tefvx File (12).3105": aimBodyPackageEnabled = enabled
-        case "tefvx File (2).3105":  aimChestPackageEnabled = enabled
-        case "tefvx File (14).3105": magicEnabled = enabled
+        case "Cryptroic File (6).3105":  aimDragEnabled = enabled
+        case "Cryptroic File (7).3105":  aimNeckEnabled = enabled
+        case "Cryptroic File (8).3105":  hspeitoffEnabled = enabled
+        case "Cryptroic File (10).3105": hyperBalamagicaEnabled = enabled
+        case "Cryptroic File (12).3105": aimBodyPackageEnabled = enabled
+        case "Cryptroic File (2).3105":  aimChestPackageEnabled = enabled
+        case "Cryptroic File (14).3105": magicEnabled = enabled
         // FF MAX
         case "OGIOS File (6).3105":  maxAimDragEnabled = enabled
         case "OGIOS File (7).3105":  maxAimNeckEnabled = enabled
