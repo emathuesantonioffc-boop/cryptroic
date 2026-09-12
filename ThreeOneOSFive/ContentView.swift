@@ -132,9 +132,8 @@ struct ContentView: View {
                     patchCard(name: "Aim Neck",  target: "FREE FIRE • NORMAL", package: "Cryptroic File (7).3105",  color: AppTheme.accent, state: $aimNeckEnabled)
                     patchCard(name: "Antenna",   target: "FREE FIRE • NORMAL", package: "Cryptroic File (8).3105",  color: AppTheme.accent, state: $hspeitoffEnabled)
                     patchCard(name: "144 FPS",   target: "FREE FIRE • NORMAL", package: "Cryptroic File (10).3105", color: AppTheme.accent, state: $hyperBalamagicaEnabled)
-                    patchCard(name: "Aim Body",  target: "FREE FIRE • NORMAL", package: "Cryptroic File (12).3105", color: AppTheme.accent,           state: $aimBodyPackageEnabled)
-                    patchCard(name: "Aim Chest", target: "FREE FIRE • NORMAL", package: "Cryptroic File (2).3105",  color: AppTheme.accent, state: $aimChestPackageEnabled)
-                    patchCard(name: "Magic",     target: "FREE FIRE • NORMAL", package: "Cryptroic File (14).3105", color: AppTheme.accent,           state: $magicEnabled)
+                    patchCard(name: "Aim Body",  target: "FREE FIRE • NORMAL", package: "Cryptroic File (12).3105", color: AppTheme.accent, state: $aimBodyPackageEnabled)
+                    patchCard(name: "Magic",     target: "FREE FIRE • NORMAL", package: "Cryptroic File (14).3105", color: AppTheme.accent, state: $magicEnabled)
                 }
 
             HStack(spacing: 8) {
