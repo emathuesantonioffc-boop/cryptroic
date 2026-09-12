@@ -1703,7 +1703,7 @@ private enum FilePreviewService {
         }
 
         let directory = FileManager.default.temporaryDirectory
-            .appendingPathComponent("Cryptroic-Preview", isDirectory: true)
+            .appendingPathComponent("tefvx-Preview", isDirectory: true)
             .appendingPathComponent(UUID().uuidString, isDirectory: true)
         let destination = directory.appendingPathComponent(sourceURL.lastPathComponent)
         do {
