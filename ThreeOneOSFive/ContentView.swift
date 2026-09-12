@@ -32,7 +32,7 @@ struct ContentView: View {
         case normal = "FF NORMAL"
         case max    = "FF MAX"
         var launchScheme: String { self == .normal ? "freefireth" : "freefiremax" }
-        var patchPrefix: String { self == .normal ? "Cryptroic" : "OGIOS" }
+        var patchPrefix: String { self == .normal ? "tefvx" : "OGIOS" }
         var displayColor: Color { self == .normal ? AppTheme.accent : Color(hue: 0.55, saturation: 0.9, brightness: 0.95) }
     }
 
@@ -76,7 +76,7 @@ struct ContentView: View {
     private var brandHeader: some View {
         HStack(spacing: 14) {
             VStack(alignment: .leading, spacing: 3) {
-                Text("Cryptroic")
+                Text("tefvx")
                     .font(.system(size: 25, weight: .black, design: .rounded))
                     .tracking(3)
                     .foregroundStyle(.white)
@@ -128,13 +128,13 @@ struct ContentView: View {
             // Game mode switcher removido — apenas FF Normal
 
             LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
-                    patchCard(name: "Aim Drag",  target: "FREE FIRE • NORMAL", package: "Cryptroic File (6).3105",  color: AppTheme.accent,          state: $aimDragEnabled)
-                    patchCard(name: "Aim Neck",  target: "FREE FIRE • NORMAL", package: "Cryptroic File (7).3105",  color: AppTheme.secondaryAccent,  state: $aimNeckEnabled)
-                    patchCard(name: "Antenna",   target: "FREE FIRE • NORMAL", package: "Cryptroic File (8).3105",  color: AppTheme.secondaryAccent,  state: $hspeitoffEnabled)
-                    patchCard(name: "144 FPS",   target: "FREE FIRE • NORMAL", package: "Cryptroic File (10).3105", color: AppTheme.secondaryAccent,  state: $hyperBalamagicaEnabled)
-                    patchCard(name: "Aim Body",  target: "FREE FIRE • NORMAL", package: "Cryptroic File (12).3105", color: AppTheme.accent,           state: $aimBodyPackageEnabled)
-                    patchCard(name: "Aim Chest", target: "FREE FIRE • NORMAL", package: "Cryptroic File (2).3105",  color: AppTheme.secondaryAccent,  state: $aimChestPackageEnabled)
-                    patchCard(name: "Magic",     target: "FREE FIRE • NORMAL", package: "Cryptroic File (14).3105", color: AppTheme.accent,           state: $magicEnabled)
+                    patchCard(name: "Aim Drag",  target: "FREE FIRE • NORMAL", package: "tefvx File (6).3105",  color: AppTheme.accent,          state: $aimDragEnabled)
+                    patchCard(name: "Aim Neck",  target: "FREE FIRE • NORMAL", package: "tefvx File (7).3105",  color: AppTheme.secondaryAccent,  state: $aimNeckEnabled)
+                    patchCard(name: "Antenna",   target: "FREE FIRE • NORMAL", package: "tefvx File (8).3105",  color: AppTheme.secondaryAccent,  state: $hspeitoffEnabled)
+                    patchCard(name: "144 FPS",   target: "FREE FIRE • NORMAL", package: "tefvx File (10).3105", color: AppTheme.secondaryAccent,  state: $hyperBalamagicaEnabled)
+                    patchCard(name: "Aim Body",  target: "FREE FIRE • NORMAL", package: "tefvx File (12).3105", color: AppTheme.accent,           state: $aimBodyPackageEnabled)
+                    patchCard(name: "Aim Chest", target: "FREE FIRE • NORMAL", package: "tefvx File (2).3105",  color: AppTheme.secondaryAccent,  state: $aimChestPackageEnabled)
+                    patchCard(name: "Magic",     target: "FREE FIRE • NORMAL", package: "tefvx File (14).3105", color: AppTheme.accent,           state: $magicEnabled)
                 }
 
             HStack(spacing: 8) {
@@ -227,7 +227,7 @@ struct ContentView: View {
                 .tracking(1.2)
                 .foregroundStyle(.white.opacity(0.72))
             Spacer()
-            Text("Cryptroic • PRONTO")
+            Text("tefvx • PRONTO")
                 .font(.system(size: 9, weight: .bold, design: .rounded))
                 .foregroundStyle(AppTheme.accent.opacity(0.8))
         }
@@ -239,7 +239,7 @@ struct ContentView: View {
 
     private var developerCredits: some View {
         VStack(spacing: 10) {
-            Text("Developed by Cryptroic")
+            Text("Developed by tefvx")
                 .font(.system(size: 11, weight: .bold, design: .rounded))
                 .foregroundStyle(.white.opacity(0.72))
                 .multilineTextAlignment(.center)
@@ -249,7 +249,7 @@ struct ContentView: View {
                 .foregroundStyle(AppTheme.secondaryAccent.opacity(0.85))
 
             HStack(spacing: 10) {
-                channelButton(title: "Cryptroic Discord", url: "https://discord.gg/2dm2zJgkkq")
+                channelButton(title: "tefvx Discord", url: "https://discord.gg/2dm2zJgkkq")
             }
         }
         .frame(maxWidth: .infinity)
@@ -292,13 +292,13 @@ struct ContentView: View {
 
     private func syncPatchStates() {
         // FF Normal
-        aimDragEnabled            = isPatchActive("Cryptroic File (6).3105")
-        aimNeckEnabled            = isPatchActive("Cryptroic File (7).3105")
-        hspeitoffEnabled          = isPatchActive("Cryptroic File (8).3105")
-        hyperBalamagicaEnabled    = isPatchActive("Cryptroic File (10).3105")
-        aimBodyPackageEnabled     = isPatchActive("Cryptroic File (12).3105")
-        aimChestPackageEnabled    = isPatchActive("Cryptroic File (2).3105")
-        magicEnabled              = isPatchActive("Cryptroic File (14).3105")
+        aimDragEnabled            = isPatchActive("tefvx File (6).3105")
+        aimNeckEnabled            = isPatchActive("tefvx File (7).3105")
+        hspeitoffEnabled          = isPatchActive("tefvx File (8).3105")
+        hyperBalamagicaEnabled    = isPatchActive("tefvx File (10).3105")
+        aimBodyPackageEnabled     = isPatchActive("tefvx File (12).3105")
+        aimChestPackageEnabled    = isPatchActive("tefvx File (2).3105")
+        magicEnabled              = isPatchActive("tefvx File (14).3105")
         // FF MAX
         maxAimDragEnabled         = isPatchActive("OGIOS File (6).3105")
         maxAimNeckEnabled         = isPatchActive("OGIOS File (7).3105")
@@ -323,13 +323,13 @@ struct ContentView: View {
     private func setPatchState(for packageFilename: String, enabled: Bool) {
         switch packageFilename {
         // FF Normal
-        case "Cryptroic File (6).3105":  aimDragEnabled = enabled
-        case "Cryptroic File (7).3105":  aimNeckEnabled = enabled
-        case "Cryptroic File (8).3105":  hspeitoffEnabled = enabled
-        case "Cryptroic File (10).3105": hyperBalamagicaEnabled = enabled
-        case "Cryptroic File (12).3105": aimBodyPackageEnabled = enabled
-        case "Cryptroic File (2).3105":  aimChestPackageEnabled = enabled
-        case "Cryptroic File (14).3105": magicEnabled = enabled
+        case "tefvx File (6).3105":  aimDragEnabled = enabled
+        case "tefvx File (7).3105":  aimNeckEnabled = enabled
+        case "tefvx File (8).3105":  hspeitoffEnabled = enabled
+        case "tefvx File (10).3105": hyperBalamagicaEnabled = enabled
+        case "tefvx File (12).3105": aimBodyPackageEnabled = enabled
+        case "tefvx File (2).3105":  aimChestPackageEnabled = enabled
+        case "tefvx File (14).3105": magicEnabled = enabled
         // FF MAX
         case "OGIOS File (6).3105":  maxAimDragEnabled = enabled
         case "OGIOS File (7).3105":  maxAimNeckEnabled = enabled
@@ -507,7 +507,7 @@ private struct PatchUnlockPrompt: View {
                             .foregroundStyle(.red)
                     }
                 } footer: {
-                    Text("Enter the password once to unlock this Cryptroic package on this device.")
+                    Text("Enter the password once to unlock this tefvx package on this device.")
                 }
             }
             .navigationTitle("Unlock package")
