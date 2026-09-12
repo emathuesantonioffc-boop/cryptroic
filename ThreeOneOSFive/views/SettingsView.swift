@@ -64,7 +64,7 @@ struct SettingsView: View {
 
                 Section(language.text("settings.credits")) {
                     creditsRow(
-                        name: "cryptroic",
+                        name: "tefvx",
                         role: language.text("credit.yangjiii"),
                         url: "https://discord.gg/2dm2zJgkkq"
                     )
