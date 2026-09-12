@@ -3,7 +3,7 @@ import Foundation
 import Security
 
 // Senha de acesso — troque aqui para mudar
-private let kAccessPassword = "Cryptroic"
+private let kAccessPassword = "tefvx"
 
 @MainActor
 final class LicenseManager: ObservableObject {
@@ -14,7 +14,7 @@ final class LicenseManager: ObservableObject {
     @Published private(set) var contactOwner: String? = nil
     @Published var rememberKey = true
 
-    private let service  = "com.Cryptroic.external-ios.activation"
+    private let service  = "com.tefvx.external-ios.activation"
     private let keyAccount = "license-key"
 
     init() {

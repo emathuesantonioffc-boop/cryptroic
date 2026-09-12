@@ -10,7 +10,7 @@ struct PatchLibraryItem: Identifiable {
     var isLocked: Bool { project == nil }
     var displayName: String {
         let filename = packageURL.deletingPathExtension().lastPathComponent
-        if filename.hasPrefix("Cryptroic File (") || filename.hasPrefix("OGIOS File (") {
+        if filename.hasPrefix("tefvx File (") || filename.hasPrefix("OGIOS File (") {
             return filename
         }
         return project?.name ?? filename
@@ -56,7 +56,7 @@ enum PatchProjectLibrary {
         // Xcode may flatten folder references into the app bundle. Resolve both
         // the intended Patches subdirectory and the flattened bundle root so
         // standalone builds remain self-contained across packaging layouts.
-        let extensions = ["3105", "Cryptroic", "cryptroic"]
+        let extensions = ["3105", "tefvx", "cryptroic"]
         var bundledURLs: [URL] = []
         var seen = Set<String>()
         for ext in extensions {
@@ -102,7 +102,7 @@ enum PatchProjectLibrary {
                     // Only the app's renamed bundled resources use the internal
                     // key; imported packages remain locked for the user.
                     let filename = url.deletingPathExtension().lastPathComponent
-                    guard filename.hasPrefix("Cryptroic File (") || filename.hasPrefix("OGIOS File (") else {
+                    guard filename.hasPrefix("tefvx File (") || filename.hasPrefix("OGIOS File (") else {
                         decoded = nil
                         continue
                     }
@@ -164,10 +164,10 @@ enum PatchProjectLibrary {
         } else {
             let root = try packageRootURL(fileManager: fileManager)
             let baseName = sanitizedFilename(projectName)
-            var candidate = root.appendingPathComponent(baseName).appendingPathExtension("Cryptroic")
+            var candidate = root.appendingPathComponent(baseName).appendingPathExtension("tefvx")
             var suffix = 2
             while fileManager.fileExists(atPath: candidate.path) {
-                candidate = root.appendingPathComponent("\(baseName)-\(suffix)").appendingPathExtension("Cryptroic")
+                candidate = root.appendingPathComponent("\(baseName)-\(suffix)").appendingPathExtension("tefvx")
                 suffix += 1
             }
             destination = candidate

@@ -19,7 +19,7 @@ struct LicenseActivationView: View {
                         VStack(spacing: 0) {
                             Spacer(minLength: 42)
 
-                            Text("Cryptroic")
+                            Text("tefvx")
                                 .font(.system(size: 30, weight: .black, design: .rounded))
                                 .tracking(1.4)
                                 .foregroundStyle(.white)
@@ -29,23 +29,23 @@ struct LicenseActivationView: View {
                                 .foregroundStyle(.white.opacity(0.55))
                                 .padding(.top, 5)
 
-                            Text("Package: Cryptroic")
+                            Text("Package: tefvx")
                                 .font(.system(size: 12, weight: .bold, design: .rounded))
                                 .foregroundStyle(AppTheme.secondaryAccent.opacity(0.9))
                                 .padding(.top, 8)
 
                             VStack(spacing: 16) {
                                 HStack(spacing: 10) {
-                                    Image(systemName: "key.fill")
+                                    Image(systemName: manager.isBusy ? "arrow.triangle.2.circlepath" : "key.fill")
                                         .foregroundStyle(AppTheme.secondaryAccent)
                                         .font(.system(size: 16, weight: .bold))
-                                    Text("License Required")
+                                    Text(manager.isBusy ? "Connecting to KeyAuth..." : "KeyAuth License Required")
                                         .font(.system(size: 16, weight: .black, design: .rounded))
                                         .foregroundStyle(.white)
                                     Spacer()
                                 }
 
-                                Text("Enter your license key to activate Cryptroic")
+                                Text("Enter your KeyAuth license key to activate tefvx")
                                     .font(.system(size: 13, weight: .medium, design: .rounded))
                                     .foregroundStyle(.white.opacity(0.68))
                                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -72,7 +72,7 @@ struct LicenseActivationView: View {
                                 Button(action: activate) {
                                     HStack(spacing: 9) {
                                         Image(systemName: manager.isBusy ? "hourglass" : "checkmark.shield.fill")
-                                        Text(manager.isBusy ? "VERIFYING..." : "VERIFY AND CONTINUE")
+                                        Text(manager.isBusy ? "VERIFYING WITH KEYAUTH..." : "VERIFY AND CONTINUE")
                                     }
                                     .font(.system(size: 14, weight: .black, design: .rounded))
                                     .foregroundStyle(.white)
