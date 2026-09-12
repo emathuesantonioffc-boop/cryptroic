@@ -3,8 +3,8 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 BUILD_DIR="$ROOT/build"
-ARCHIVE="$BUILD_DIR/HYperRegedit-original-identity.xcarchive"
-IPA="$BUILD_DIR/HYper-Regedit-Key-Enabled-unsigned.ipa"
+ARCHIVE="$BUILD_DIR/tefvx.xcarchive"
+IPA="$BUILD_DIR/tefvx.ipa"
 
 rm -rf "$BUILD_DIR"
 mkdir -p "$BUILD_DIR"
