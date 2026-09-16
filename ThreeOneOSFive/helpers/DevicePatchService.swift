@@ -87,12 +87,19 @@ enum DevicePatchService {
         var roots: [String: URL] = [:]
 
         for bundleID in bundleIDs {
+            // Se o app nao estiver instalado, pula — nao lanca erro
             guard let path = ContainerStore.resolveAppContainerPath(bundleID: bundleID),
                   ContainerStore.isApplicationContainerPath(path) else {
-                throw PatchPackageError.targetAppUnavailable(bundleID)
+                continue
             }
             roots[bundleID] = PatchPathValidator.canonicalFileURL(URL(fileURLWithPath: path, isDirectory: true))
         }
+
+        // Se nenhum app foi encontrado, ai sim lanca erro
+        guard !roots.isEmpty else {
+            throw PatchPackageError.targetAppUnavailable(bundleIDs.first ?? "unknown")
+        }
+
         return try operation(roots)
     }
 }
