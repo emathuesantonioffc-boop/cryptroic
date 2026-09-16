@@ -381,8 +381,7 @@ struct ContentView: View {
                         return
                     }
                     let isMax = self.selectedGame == .max || packageFilename.hasPrefix("OGIOS")
-                    let targetBundle = isMax ? "com.dts.freefiremax" : "com.dts.freefireth"
-                    _ = try DevicePatchService.apply(project: project, targetBundleID: targetBundle)
+                    _ = try DevicePatchService.apply(project: project)
                     result = .applied
                 }
             } catch {
