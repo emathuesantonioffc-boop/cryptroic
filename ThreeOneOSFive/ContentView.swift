@@ -196,7 +196,7 @@ struct ContentView: View {
 
     private func patchCard(name: String, target: String, package: String, color: Color, state: Binding<Bool>) -> some View {
         PatchOptionCard(name: name, target: target, color: color, isEnabled: state, isBusy: patchOperationBusy) {
-            togglePatch(packageFilename: package, state: state)
+            togglePatch(packageFilename: package, state: state, name: name)
         }
     }
 
@@ -204,7 +204,11 @@ struct ContentView: View {
         VStack(alignment: .leading, spacing: 12) {
             panelTitle("INICIAR JOGO", icon: "arrow.up.forward.app.fill")
             HStack(spacing: 12) {
-                launchButton(title: "FF NORMAL", subtitle: "Free Fire Normal", color: AppTheme.accent, scheme: "freefireth")
+                if selectedGame == .normal {
+                    launchButton(title: "FF NORMAL", subtitle: "Free Fire Normal", color: AppTheme.accent, scheme: "freefireth")
+                } else {
+                    launchButton(title: "FF MAX", subtitle: "Free Fire MAX", color: AppTheme.accent, scheme: "freefiremax")
+                }
             }
             Button {
                 showCleaner = true
@@ -385,7 +389,7 @@ struct ContentView: View {
         }
     }
 
-    private func togglePatch(packageFilename: String, state: Binding<Bool>) {
+    private func togglePatch(packageFilename: String, state: Binding<Bool>, name: String = "") {
         guard !patchOperationBusy else { return }
         guard let item = patchStore.items.first(where: { $0.packageURL.lastPathComponent.caseInsensitiveCompare(packageFilename) == .orderedSame }) else {
             patchMessage = "ERROR — PACKAGE NOT FOUND"
@@ -395,9 +399,10 @@ struct ContentView: View {
 
         let wasEnabled = state.wrappedValue
         patchOperationBusy = true
-        patchMessage = "PROCESSING — \(packageFilename)"
+        patchMessage = "PROCESSANDO PATCH…"
         let project = item.project
         let projectID = item.id
+        let patchDisplayName = name
 
         DispatchQueue.global(qos: .userInitiated).async {
             let result: PatchActionResult
@@ -437,11 +442,11 @@ struct ContentView: View {
                 switch result {
                 case .applied:
                     self.setPatchState(for: packageFilename, enabled: true)
-                    self.patchMessage = "Inject Successful — \(packageFilename)"
+                    self.patchMessage = "Inject Successful — \(patchDisplayName)"
                     PatchAudioFeedback.bypassActivated()
                 case .restored:
                     self.setPatchState(for: packageFilename, enabled: false)
-                    self.patchMessage = "Restore Successful — \(packageFilename)"
+                    self.patchMessage = "Restore Successful — \(patchDisplayName)"
                     PatchAudioFeedback.originalRestored()
                 case .unavailable(let message):
                     self.patchMessage = message
