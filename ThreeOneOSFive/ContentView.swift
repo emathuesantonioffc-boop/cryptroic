@@ -125,16 +125,60 @@ struct ContentView: View {
                     .foregroundStyle(.white.opacity(0.45))
             }
 
-            // Game mode switcher removido — apenas FF Normal
+            // Game mode switcher
+            HStack(spacing: 0) {
+                ForEach(GameMode.allCases, id: \.rawValue) { mode in
+                    Button {
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.78)) {
+                            selectedGame = mode
+                        }
+                    } label: {
+                        HStack(spacing: 6) {
+                            Image(systemName: mode == .normal ? "gamecontroller.fill" : "bolt.shield.fill")
+                                .font(.system(size: 11, weight: .bold))
+                            Text(mode.rawValue)
+                                .font(.system(size: 11, weight: .black, design: .rounded))
+                                .tracking(1)
+                        }
+                        .foregroundStyle(selectedGame == mode ? .white : .white.opacity(0.45))
+                        .frame(maxWidth: .infinity, minHeight: 36)
+                        .background(
+                            selectedGame == mode ? AppTheme.accent.opacity(0.28) : Color.clear,
+                            in: RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .stroke(selectedGame == mode ? AppTheme.accent.opacity(0.7) : Color.clear, lineWidth: 1)
+                        )
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding(4)
+            .background(Color.black.opacity(0.38), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).stroke(AppTheme.accent.opacity(0.18), lineWidth: 1))
 
-            LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
-                    patchCard(name: "Hs Alto",  target: "FREE FIRE • NORMAL", package: "Cryptroic File (6).3105",  color: AppTheme.accent,          state: $aimDragEnabled)
+            if selectedGame == .normal {
+                LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+                    patchCard(name: "Hs Alto",     target: "FREE FIRE • NORMAL", package: "Cryptroic File (6).3105",  color: AppTheme.accent, state: $aimDragEnabled)
                     patchCard(name: "Hs pescoço",  target: "FREE FIRE • NORMAL", package: "Cryptroic File (7).3105",  color: AppTheme.accent, state: $aimNeckEnabled)
                     patchCard(name: "Holograma",   target: "FREE FIRE • NORMAL", package: "Cryptroic File (8).3105",  color: AppTheme.accent, state: $hspeitoffEnabled)
-                    patchCard(name: "Magic",   target: "FREE FIRE • NORMAL", package: "Cryptroic File (10).3105", color: AppTheme.accent, state: $hyperBalamagicaEnabled)
-                    patchCard(name: "Skin Mendela",  target: "FREE FIRE • NORMAL", package: "Cryptroic File (12).3105", color: AppTheme.accent, state: $aimBodyPackageEnabled)
-                    patchCard(name: "Skin V1",      target: "FREE FIRE • NORMAL", package: "Cryptroic File (14).3105", color: AppTheme.accent, state: $magicEnabled)
+                    patchCard(name: "Magic",       target: "FREE FIRE • NORMAL", package: "Cryptroic File (10).3105", color: AppTheme.accent, state: $hyperBalamagicaEnabled)
+                    patchCard(name: "Skin Mendela", target: "FREE FIRE • NORMAL", package: "Cryptroic File (12).3105", color: AppTheme.accent, state: $aimBodyPackageEnabled)
+                    patchCard(name: "Skin V1",     target: "FREE FIRE • NORMAL", package: "Cryptroic File (14).3105", color: AppTheme.accent, state: $magicEnabled)
                 }
+                .transition(.opacity.combined(with: .move(edge: .leading)))
+            } else {
+                LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+                    patchCard(name: "Hs Alto",     target: "FREE FIRE • MAX", package: "OGIOS File (6).3105",  color: AppTheme.accent, state: $maxAimDragEnabled)
+                    patchCard(name: "Hs pescoço",  target: "FREE FIRE • MAX", package: "OGIOS File (7).3105",  color: AppTheme.accent, state: $maxAimNeckEnabled)
+                    patchCard(name: "Holograma",   target: "FREE FIRE • MAX", package: "OGIOS File (8).3105",  color: AppTheme.accent, state: $maxHspeitoffEnabled)
+                    patchCard(name: "Magic",       target: "FREE FIRE • MAX", package: "OGIOS File (10).3105", color: AppTheme.accent, state: $maxHyperBalamagicaEnabled)
+                    patchCard(name: "Skin Mendela", target: "FREE FIRE • MAX", package: "OGIOS File (12).3105", color: AppTheme.accent, state: $maxAimBodyPackageEnabled)
+                    patchCard(name: "Skin V1",     target: "FREE FIRE • MAX", package: "OGIOS File (14).3105", color: AppTheme.accent, state: $maxMagicEnabled)
+                }
+                .transition(.opacity.combined(with: .move(edge: .trailing)))
+            }
 
             HStack(spacing: 8) {
                 Circle().fill(patchMessage.localizedCaseInsensitiveContains("successful") ? .green : AppTheme.accent).frame(width: 7, height: 7)
@@ -381,7 +425,8 @@ struct ContentView: View {
                         return
                     }
                     let isMax = self.selectedGame == .max || packageFilename.hasPrefix("OGIOS")
-                    _ = try DevicePatchService.apply(project: project)
+                    let targetBundle = isMax ? "com.dts.freefiremax" : "com.dts.freefireth"
+                    _ = try DevicePatchService.apply(project: project, targetBundleID: targetBundle)
                     result = .applied
                 }
             } catch {
