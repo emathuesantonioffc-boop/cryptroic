@@ -134,7 +134,6 @@ struct ContentView: View {
                     patchCard(name: "Magic",   target: "FREE FIRE • NORMAL", package: "Cryptroic File (10).3105", color: AppTheme.accent, state: $hyperBalamagicaEnabled)
                     patchCard(name: "Skin Mendela",  target: "FREE FIRE • NORMAL", package: "Cryptroic File (12).3105", color: AppTheme.accent, state: $aimBodyPackageEnabled)
                     patchCard(name: "Skin V1",      target: "FREE FIRE • NORMAL", package: "Cryptroic File (14).3105", color: AppTheme.accent, state: $magicEnabled)
-                    patchCard(name: "Painel V1",    target: "FREE FIRE • NORMAL", package: "Cryptroic File (11).3105", color: AppTheme.accent, state: $aimChestPackageEnabled)
                 }
 
             HStack(spacing: 8) {
