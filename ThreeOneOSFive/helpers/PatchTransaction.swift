@@ -284,7 +284,7 @@ enum PatchTransaction {
                 journal.records,
                 transactionDirectory: receipt.journalURL.deletingLastPathComponent(),
                 roots: roots,
-                requirePatchedDigest: false,
+                requirePatchedDigest: journal.status == .applied,
                 createdDirectories: journal.createdDirectories ?? [],
                 fileManager: fileManager
             )
