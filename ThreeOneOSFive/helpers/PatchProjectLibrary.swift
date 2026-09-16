@@ -10,7 +10,7 @@ struct PatchLibraryItem: Identifiable {
     var isLocked: Bool { project == nil }
     var displayName: String {
         let filename = packageURL.deletingPathExtension().lastPathComponent
-        if filename.hasPrefix("tefvx File (") || filename.hasPrefix("OGIOS File (") {
+        if filename.hasPrefix("Cryptroic File (") || filename.hasPrefix("OGIOS File (") {
             return filename
         }
         return project?.name ?? filename
