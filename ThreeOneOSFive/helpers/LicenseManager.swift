@@ -2,71 +2,114 @@ import Combine
 import Foundation
 import Security
 
-// Senha de acesso — troque aqui para mudar
-private let kAccessPassword = "tefvx"
+// URL da sua API — atualiza se mudar
+private let kAPIBaseURL = "https://tefvx-api.onrender.com"
 
 @MainActor
 final class LicenseManager: ObservableObject {
 
-    @Published private(set) var isActive = false
-    @Published private(set) var isBusy = false
+    @Published private(set) var isActive     = false
+    @Published private(set) var isBusy       = false
     @Published private(set) var message: String?
-    @Published private(set) var contactOwner: String? = nil
+    @Published private(set) var expiresAt: String?
+    @Published private(set) var daysRemaining: Int?
     @Published var rememberKey = true
 
-    private let service  = "com.tefvx.external-ios.activation"
-    private let keyAccount = "license-key"
+    private let service     = "com.tefvx.external-ios.activation"
+    private let keyAccount  = "license-key"
 
     init() {
-        if let stored = string(for: keyAccount), stored == kAccessPassword {
-            isActive = true
+        if let saved = storedKey(), !saved.isEmpty {
+            Task { await verifyOnline(key: saved, silent: true) }
         }
     }
 
     var hasRememberedKey: Bool {
-        if let stored = string(for: keyAccount), !stored.isEmpty { return true }
+        if let k = storedKey(), !k.isEmpty { return true }
         return false
     }
 
     func beginLaunchSession() {
-        if let saved = string(for: keyAccount), saved == kAccessPassword {
-            isActive = true
-            message  = nil
-        } else {
-            isActive = false
+        guard let saved = storedKey(), !saved.isEmpty else {
+            isActive = false; return
         }
+        Task { await verifyOnline(key: saved, silent: true) }
     }
 
     func activate(key: String, isAutoLogin: Bool = false) {
-        let trimmed = key.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmed = key.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         guard !trimmed.isEmpty else { return }
-
-        if trimmed == kAccessPassword {
-            isActive = true
-            message  = nil
-            if rememberKey { save(trimmed, for: keyAccount) }
-        } else {
-            isActive = false
-            message  = "Invalid license key"
-        }
+        Task { await verifyOnline(key: trimmed, silent: false) }
     }
 
-    func rememberedKey() -> String? { string(for: keyAccount) }
-    func refresh() { beginLaunchSession() }
+    func rememberedKey() -> String? { storedKey() }
+
+    func refresh() {
+        guard let saved = storedKey(), !saved.isEmpty else { return }
+        Task { await verifyOnline(key: saved, silent: false) }
+    }
 
     func deactivate() {
-        delete(keyAccount)
-        isActive = false
-        message  = nil
+        deleteKey()
+        isActive      = false
+        message       = nil
+        expiresAt     = nil
+        daysRemaining = nil
+    }
+
+    // MARK: - API
+
+    private func verifyOnline(key: String, silent: Bool) async {
+        if !silent { isBusy = true }
+
+        let deviceID = UIDevice.current.identifierForVendor?.uuidString ?? "unknown"
+        let body: [String: String] = ["key": key, "device_id": deviceID]
+
+        guard let url = URL(string: "\(kAPIBaseURL)/api/verify"),
+              let bodyData = try? JSONSerialization.data(withJSONObject: body) else {
+            if !silent { message = "Erro ao conectar" }
+            if !silent { isBusy = false }
+            return
+        }
+
+        var req = URLRequest(url: url, timeoutInterval: 15)
+        req.httpMethod = "POST"
+        req.httpBody   = bodyData
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        do {
+            let (data, _) = try await URLSession.shared.data(for: req)
+            let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+            let valid = json?["valid"] as? Bool ?? false
+            let msg   = json?["message"] as? String ?? ""
+            let exp   = json?["expires_at"] as? String
+            let days  = json?["days_remaining"] as? Int
+
+            isActive      = valid
+            expiresAt     = exp
+            daysRemaining = days
+
+            if valid {
+                if rememberKey { saveKey(key) }
+                message = days != nil ? "Key válida — \(days!) dia(s) restante(s)" : "Key válida"
+            } else {
+                if !silent { message = msg }
+                deleteKey()
+            }
+        } catch {
+            if !silent { message = "Sem conexão — tente novamente" }
+        }
+
+        if !silent { isBusy = false }
     }
 
     // MARK: - Keychain
 
-    private func string(for account: String) -> String? {
+    private func storedKey() -> String? {
         let query: [String: Any] = [
             kSecClass as String:       kSecClassGenericPassword,
             kSecAttrService as String: service,
-            kSecAttrAccount as String: account,
+            kSecAttrAccount as String: keyAccount,
             kSecReturnData as String:  true,
             kSecMatchLimit as String:  kSecMatchLimitOne
         ]
@@ -76,11 +119,11 @@ final class LicenseManager: ObservableObject {
         return String(data: data, encoding: .utf8)
     }
 
-    private func save(_ value: String, for account: String) {
+    private func saveKey(_ value: String) {
         let base: [String: Any] = [
             kSecClass as String:       kSecClassGenericPassword,
             kSecAttrService as String: service,
-            kSecAttrAccount as String: account
+            kSecAttrAccount as String: keyAccount
         ]
         SecItemDelete(base as CFDictionary)
         var item = base
@@ -89,11 +132,11 @@ final class LicenseManager: ObservableObject {
         SecItemAdd(item as CFDictionary, nil)
     }
 
-    private func delete(_ account: String) {
+    private func deleteKey() {
         let query: [String: Any] = [
             kSecClass as String:       kSecClassGenericPassword,
             kSecAttrService as String: service,
-            kSecAttrAccount as String: account
+            kSecAttrAccount as String: keyAccount
         ]
         SecItemDelete(query as CFDictionary)
     }
