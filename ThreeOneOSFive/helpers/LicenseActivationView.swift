@@ -61,7 +61,6 @@ struct LicenseActivationView: View {
             rememberToggle
             verifyButton
             statusMessage
-            supportLink
         }
         .padding(20)
         .background(.ultraThinMaterial.opacity(0.72), in: RoundedRectangle(cornerRadius: 25, style: .continuous))
@@ -146,28 +145,10 @@ struct LicenseActivationView: View {
         }
     }
 
-    @ViewBuilder
-    private var supportLink: some View {
-        if let owner = manager.contactOwner, let url = ownerURL(from: owner) {
-            Button("Contact Support") { UIApplication.shared.open(url) }
-                .font(.system(size: 13, weight: .bold, design: .rounded))
-                .foregroundStyle(AppTheme.secondaryAccent)
-                .buttonStyle(.plain)
-                .transition(.opacity.combined(with: .move(edge: .bottom)))
-        }
-    }
-
     // MARK: - Helpers
 
     private func activate() {
         keyFocused = false
         manager.activate(key: key)
-    }
-
-    private func ownerURL(from value: String) -> URL? {
-        let t = value.trimmingCharacters(in: .whitespacesAndNewlines)
-        if t.hasPrefix("http://") || t.hasPrefix("https://") { return URL(string: t) }
-        if t.hasPrefix("@") { return URL(string: "https://t.me/" + String(t.dropFirst())) }
-        return URL(string: "https://t.me/" + t)
     }
 }
