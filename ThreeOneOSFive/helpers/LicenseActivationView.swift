@@ -50,19 +50,7 @@ struct LicenseActivationView: View {
                                     .foregroundStyle(.white.opacity(0.68))
                                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                                TextField("License key", text: $key)
-                                    .focused($keyFocused)
-                                    .textInputAutocapitalization(.never)
-                                    .autocorrectionDisabled()
-                                    .submitLabel(.done)
-                                    .onSubmit { activate() }
-                                    .font(.system(size: 16, weight: .medium, design: .monospaced))
-                                    .foregroundStyle(.white)
-                                    .padding(.horizontal, 16)
-                                    .frame(height: 54)
-                                    .background(Color.gray.opacity(0.22), in: RoundedRectangle(cornerRadius: 17, style: .continuous))
-                                    .overlay(RoundedRectangle(cornerRadius: 17, style: .continuous).stroke(AppTheme.accent.opacity(0.48), lineWidth: 1))
-                                    .id("license-field")
+                                keyTextField
 
                                 Toggle("Remember key on this device", isOn: $manager.rememberKey)
                                     .font(.system(size: 12, weight: .bold, design: .rounded))
@@ -130,6 +118,22 @@ struct LicenseActivationView: View {
             }
         }
         .preferredColorScheme(.dark)
+    }
+
+    private var keyTextField: some View {
+        TextField("License key", text: $key)
+            .focused($keyFocused)
+            .textInputAutocapitalization(.never)
+            .autocorrectionDisabled()
+            .submitLabel(.done)
+            .onSubmit { activate() }
+            .font(.system(size: 16, weight: .medium, design: .monospaced))
+            .foregroundStyle(.white)
+            .padding(.horizontal, 16)
+            .frame(height: 54)
+            .background(Color.gray.opacity(0.22), in: RoundedRectangle(cornerRadius: 17, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 17, style: .continuous).stroke(AppTheme.accent.opacity(0.48), lineWidth: 1))
+            .id("license-field")
     }
 
     private func activate() {
