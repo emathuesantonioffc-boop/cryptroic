@@ -57,44 +57,11 @@ struct LicenseActivationView: View {
                                     .foregroundStyle(.white.opacity(0.72))
                                     .tint(AppTheme.accent)
 
-                                Button(action: activate) {
-                                    HStack(spacing: 9) {
-                                        Image(systemName: manager.isBusy ? "hourglass" : "checkmark.shield.fill")
-                                        Text(manager.isBusy ? "VERIFYING WITH KEYAUTH..." : "VERIFY AND CONTINUE")
-                                    }
-                                    .font(.system(size: 14, weight: .black, design: .rounded))
-                                    .foregroundStyle(.white)
-                                    .frame(maxWidth: .infinity, minHeight: 54)
-                                    .background(AppTheme.accent, in: RoundedRectangle(cornerRadius: 17, style: .continuous))
-                                    .shadow(color: AppTheme.accent.opacity(0.30), radius: 14, y: 7)
-                                }
-                                .buttonStyle(.plain)
-                                .disabled(key.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || manager.isBusy)
-                                .opacity(key.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.48 : 1)
+                                activateButton
 
-                                if let message = manager.message {
-                                    let msgColor: Color = manager.isActive ? Color.green : Color.red.opacity(0.95)
-                                    let msgText: String = message
-                                    Text(msgText)
-                                        .font(.system(size: 12, weight: .bold, design: .rounded))
-                                        .foregroundStyle(msgColor)
-                                        .multilineTextAlignment(.center)
-                                        .frame(maxWidth: .infinity)
-                                        .padding(.horizontal, 14)
-                                        .padding(.vertical, 10)
-                                        .background(Color.gray.opacity(0.20), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-                                }
+                                messageView
 
-                                if let contactOwner = manager.contactOwner,
-                                   let contactURL = ownerURL(from: contactOwner) {
-                                    Button("Contact Support") {
-                                        UIApplication.shared.open(contactURL)
-                                    }
-                                    .font(.system(size: 13, weight: .bold, design: .rounded))
-                                    .foregroundStyle(AppTheme.secondaryAccent)
-                                    .buttonStyle(.plain)
-                                    .transition(.opacity.combined(with: .move(edge: .bottom)))
-                                }
+                                contactButton
                             }
                             .padding(20)
                             .background(.ultraThinMaterial.opacity(0.72), in: RoundedRectangle(cornerRadius: 25, style: .continuous))
@@ -118,6 +85,53 @@ struct LicenseActivationView: View {
             }
         }
         .preferredColorScheme(.dark)
+    }
+
+    private var activateButton: some View {
+        let isEmpty = key.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        return Button(action: activate) {
+            HStack(spacing: 9) {
+                Image(systemName: manager.isBusy ? "hourglass" : "checkmark.shield.fill")
+                Text(manager.isBusy ? "VERIFYING WITH KEYAUTH..." : "VERIFY AND CONTINUE")
+            }
+            .font(.system(size: 14, weight: .black, design: .rounded))
+            .foregroundStyle(.white)
+            .frame(maxWidth: .infinity, minHeight: 54)
+            .background(AppTheme.accent, in: RoundedRectangle(cornerRadius: 17, style: .continuous))
+            .shadow(color: AppTheme.accent.opacity(0.30), radius: 14, y: 7)
+        }
+        .buttonStyle(.plain)
+        .disabled(isEmpty || manager.isBusy)
+        .opacity(isEmpty ? 0.48 : 1)
+    }
+
+    @ViewBuilder
+    private var messageView: some View {
+        if let message = manager.message {
+            let msgColor: Color = manager.isActive ? Color.green : Color.red.opacity(0.95)
+            Text(message)
+                .font(.system(size: 12, weight: .bold, design: .rounded))
+                .foregroundStyle(msgColor)
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 10)
+                .background(Color.gray.opacity(0.20), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        }
+    }
+
+    @ViewBuilder
+    private var contactButton: some View {
+        if let contactOwner = manager.contactOwner,
+           let contactURL = ownerURL(from: contactOwner) {
+            Button("Contact Support") {
+                UIApplication.shared.open(contactURL)
+            }
+            .font(.system(size: 13, weight: .bold, design: .rounded))
+            .foregroundStyle(AppTheme.secondaryAccent)
+            .buttonStyle(.plain)
+            .transition(.opacity.combined(with: .move(edge: .bottom)))
+        }
     }
 
     private var keyTextField: some View {
