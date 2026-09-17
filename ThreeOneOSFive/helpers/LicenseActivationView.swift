@@ -85,8 +85,9 @@ struct LicenseActivationView: View {
                                 .opacity(key.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.48 : 1)
 
                                 if let message = manager.message {
-                                    let msgColor: Color = manager.isActive ? .green : .red.opacity(0.95)
-                                    Text(message)
+                                    let msgColor: Color = manager.isActive ? Color.green : Color.red.opacity(0.95)
+                                    let msgText: String = message
+                                    Text(msgText)
                                         .font(.system(size: 12, weight: .bold, design: .rounded))
                                         .foregroundStyle(msgColor)
                                         .multilineTextAlignment(.center)
