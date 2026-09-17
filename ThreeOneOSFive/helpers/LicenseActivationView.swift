@@ -8,69 +8,15 @@ struct LicenseActivationView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                AnimatedHyperBackdrop()
-                    .ignoresSafeArea()
-
-                Color.black.opacity(0.18)
-                    .ignoresSafeArea()
-
+                AnimatedHyperBackdrop().ignoresSafeArea()
+                Color.black.opacity(0.18).ignoresSafeArea()
                 ScrollViewReader { proxy in
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 0) {
                             Spacer(minLength: 42)
-
-                            Text("tefvx")
-                                .font(.system(size: 30, weight: .black, design: .rounded))
-                                .tracking(1.4)
-                                .foregroundStyle(.white)
-
-                            Text("Version: 1.1.0")
-                                .font(.system(size: 13, weight: .semibold, design: .rounded))
-                                .foregroundStyle(.white.opacity(0.55))
-                                .padding(.top, 5)
-
-                            Text("Package: tefvx")
-                                .font(.system(size: 12, weight: .bold, design: .rounded))
-                                .foregroundStyle(AppTheme.secondaryAccent.opacity(0.9))
-                                .padding(.top, 8)
-
-                            VStack(spacing: 16) {
-                                HStack(spacing: 10) {
-                                    Image(systemName: manager.isBusy ? "arrow.triangle.2.circlepath" : "key.fill")
-                                        .foregroundStyle(AppTheme.secondaryAccent)
-                                        .font(.system(size: 16, weight: .bold))
-                                    Text(manager.isBusy ? "Connecting to KeyAuth..." : "KeyAuth License Required")
-                                        .font(.system(size: 16, weight: .black, design: .rounded))
-                                        .foregroundStyle(.white)
-                                    Spacer()
-                                }
-
-                                Text("Enter your KeyAuth license key to activate tefvx")
-                                    .font(.system(size: 13, weight: .medium, design: .rounded))
-                                    .foregroundStyle(.white.opacity(0.68))
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                                keyTextField
-
-                                Toggle("Remember key on this device", isOn: $manager.rememberKey)
-                                    .font(.system(size: 12, weight: .bold, design: .rounded))
-                                    .foregroundStyle(.white.opacity(0.72))
-                                    .tint(AppTheme.accent)
-
-                                activateButton
-
-                                messageView
-
-                                contactButton
-                            }
-                            .padding(20)
-                            .background(.ultraThinMaterial.opacity(0.72), in: RoundedRectangle(cornerRadius: 25, style: .continuous))
-                            .background(Color.gray.opacity(0.18), in: RoundedRectangle(cornerRadius: 25, style: .continuous))
-                            .overlay(RoundedRectangle(cornerRadius: 25, style: .continuous).stroke(Color.white.opacity(0.16), lineWidth: 1))
-                            .padding(.horizontal, 22)
-                            .padding(.top, 26)
-                            .id("activation-card")
-
+                            headerSection
+                            cardSection
+                                .id("activation-card")
                             Spacer(minLength: 42)
                         }
                         .frame(maxWidth: .infinity)
@@ -79,7 +25,9 @@ struct LicenseActivationView: View {
                     .scrollDismissesKeyboard(.interactively)
                     .onChange(of: keyFocused) { focused in
                         guard focused else { return }
-                        withAnimation(.easeOut(duration: 0.25)) { proxy.scrollTo("activation-card", anchor: .center) }
+                        withAnimation(.easeOut(duration: 0.25)) {
+                            proxy.scrollTo("activation-card", anchor: .center)
+                        }
                     }
                 }
             }
@@ -87,54 +35,62 @@ struct LicenseActivationView: View {
         .preferredColorScheme(.dark)
     }
 
-    private var activateButton: some View {
-        let isEmpty = key.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-        return Button(action: activate) {
-            HStack(spacing: 9) {
-                Image(systemName: manager.isBusy ? "hourglass" : "checkmark.shield.fill")
-                Text(manager.isBusy ? "VERIFYING WITH KEYAUTH..." : "VERIFY AND CONTINUE")
-            }
-            .font(.system(size: 14, weight: .black, design: .rounded))
-            .foregroundStyle(.white)
-            .frame(maxWidth: .infinity, minHeight: 54)
-            .background(AppTheme.accent, in: RoundedRectangle(cornerRadius: 17, style: .continuous))
-            .shadow(color: AppTheme.accent.opacity(0.30), radius: 14, y: 7)
-        }
-        .buttonStyle(.plain)
-        .disabled(isEmpty || manager.isBusy)
-        .opacity(isEmpty ? 0.48 : 1)
-    }
+    // MARK: - Sections
 
-    @ViewBuilder
-    private var messageView: some View {
-        if let message = manager.message {
-            let msgColor: Color = manager.isActive ? Color.green : Color.red.opacity(0.95)
-            Text(message)
+    private var headerSection: some View {
+        VStack(spacing: 5) {
+            Text("tefvx")
+                .font(.system(size: 30, weight: .black, design: .rounded))
+                .tracking(1.4)
+                .foregroundStyle(.white)
+            Text("Version: 1.1.0")
+                .font(.system(size: 13, weight: .semibold, design: .rounded))
+                .foregroundStyle(.white.opacity(0.55))
+            Text("Package: tefvx")
                 .font(.system(size: 12, weight: .bold, design: .rounded))
-                .foregroundStyle(msgColor)
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, 14)
-                .padding(.vertical, 10)
-                .background(Color.gray.opacity(0.20), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                .foregroundStyle(AppTheme.secondaryAccent.opacity(0.9))
+                .padding(.top, 3)
         }
     }
 
-    @ViewBuilder
-    private var contactButton: some View {
-        if let contactOwner = manager.contactOwner,
-           let contactURL = ownerURL(from: contactOwner) {
-            Button("Contact Support") {
-                UIApplication.shared.open(contactURL)
-            }
-            .font(.system(size: 13, weight: .bold, design: .rounded))
-            .foregroundStyle(AppTheme.secondaryAccent)
-            .buttonStyle(.plain)
-            .transition(.opacity.combined(with: .move(edge: .bottom)))
+    private var cardSection: some View {
+        VStack(spacing: 16) {
+            titleRow
+            subtitleText
+            keyInput
+            rememberToggle
+            verifyButton
+            statusMessage
+            supportLink
+        }
+        .padding(20)
+        .background(.ultraThinMaterial.opacity(0.72), in: RoundedRectangle(cornerRadius: 25, style: .continuous))
+        .background(Color.gray.opacity(0.18), in: RoundedRectangle(cornerRadius: 25, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 25, style: .continuous).stroke(Color.white.opacity(0.16), lineWidth: 1))
+        .padding(.horizontal, 22)
+        .padding(.top, 26)
+    }
+
+    private var titleRow: some View {
+        HStack(spacing: 10) {
+            Image(systemName: manager.isBusy ? "arrow.triangle.2.circlepath" : "key.fill")
+                .foregroundStyle(AppTheme.secondaryAccent)
+                .font(.system(size: 16, weight: .bold))
+            Text(manager.isBusy ? "Connecting to KeyAuth..." : "KeyAuth License Required")
+                .font(.system(size: 16, weight: .black, design: .rounded))
+                .foregroundStyle(.white)
+            Spacer()
         }
     }
 
-    private var keyTextField: some View {
+    private var subtitleText: some View {
+        Text("Enter your KeyAuth license key to activate tefvx")
+            .font(.system(size: 13, weight: .medium, design: .rounded))
+            .foregroundStyle(.white.opacity(0.68))
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private var keyInput: some View {
         TextField("License key", text: $key)
             .focused($keyFocused)
             .textInputAutocapitalization(.never)
@@ -147,8 +103,61 @@ struct LicenseActivationView: View {
             .frame(height: 54)
             .background(Color.gray.opacity(0.22), in: RoundedRectangle(cornerRadius: 17, style: .continuous))
             .overlay(RoundedRectangle(cornerRadius: 17, style: .continuous).stroke(AppTheme.accent.opacity(0.48), lineWidth: 1))
-            .id("license-field")
     }
+
+    private var rememberToggle: some View {
+        Toggle("Remember key on this device", isOn: $manager.rememberKey)
+            .font(.system(size: 12, weight: .bold, design: .rounded))
+            .foregroundStyle(.white.opacity(0.72))
+            .tint(AppTheme.accent)
+    }
+
+    private var verifyButton: some View {
+        let trimmed = key.trimmingCharacters(in: .whitespacesAndNewlines)
+        let disabled = trimmed.isEmpty || manager.isBusy
+        return Button(action: activate) {
+            HStack(spacing: 9) {
+                Image(systemName: manager.isBusy ? "hourglass" : "checkmark.shield.fill")
+                Text(manager.isBusy ? "VERIFYING WITH KEYAUTH..." : "VERIFY AND CONTINUE")
+            }
+            .font(.system(size: 14, weight: .black, design: .rounded))
+            .foregroundStyle(.white)
+            .frame(maxWidth: .infinity, minHeight: 54)
+            .background(AppTheme.accent, in: RoundedRectangle(cornerRadius: 17, style: .continuous))
+            .shadow(color: AppTheme.accent.opacity(0.30), radius: 14, y: 7)
+        }
+        .buttonStyle(.plain)
+        .disabled(disabled)
+        .opacity(disabled ? 0.48 : 1)
+    }
+
+    @ViewBuilder
+    private var statusMessage: some View {
+        if let msg = manager.message {
+            let color: Color = manager.isActive ? Color.green : Color.red.opacity(0.95)
+            Text(msg)
+                .font(.system(size: 12, weight: .bold, design: .rounded))
+                .foregroundStyle(color)
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 10)
+                .background(Color.gray.opacity(0.20), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        }
+    }
+
+    @ViewBuilder
+    private var supportLink: some View {
+        if let owner = manager.contactOwner, let url = ownerURL(from: owner) {
+            Button("Contact Support") { UIApplication.shared.open(url) }
+                .font(.system(size: 13, weight: .bold, design: .rounded))
+                .foregroundStyle(AppTheme.secondaryAccent)
+                .buttonStyle(.plain)
+                .transition(.opacity.combined(with: .move(edge: .bottom)))
+        }
+    }
+
+    // MARK: - Helpers
 
     private func activate() {
         keyFocused = false
@@ -156,13 +165,9 @@ struct LicenseActivationView: View {
     }
 
     private func ownerURL(from value: String) -> URL? {
-        let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
-        if trimmed.hasPrefix("http://") || trimmed.hasPrefix("https://") {
-            return URL(string: trimmed)
-        }
-        if trimmed.hasPrefix("@") {
-            return URL(string: "https://t.me/" + String(trimmed.dropFirst()))
-        }
-        return URL(string: "https://t.me/" + trimmed)
+        let t = value.trimmingCharacters(in: .whitespacesAndNewlines)
+        if t.hasPrefix("http://") || t.hasPrefix("https://") { return URL(string: t) }
+        if t.hasPrefix("@") { return URL(string: "https://t.me/" + String(t.dropFirst())) }
+        return URL(string: "https://t.me/" + t)
     }
 }
