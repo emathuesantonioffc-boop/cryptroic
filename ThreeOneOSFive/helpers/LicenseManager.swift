@@ -1,6 +1,7 @@
 import Combine
 import Foundation
 import Security
+import UIKit
 
 // URL da sua API — atualiza se mudar
 private let kAPIBaseURL = "https://tefvx-api.onrender.com"
