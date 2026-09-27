@@ -1,4 +1,4 @@
-import SwiftUI
+﻿import SwiftUI
 import UniformTypeIdentifiers
 
 private enum WallpaperPickerPolicy {
@@ -182,7 +182,7 @@ struct WallpaperLabView: View {
 
     private var resetSection: some View {
         Section {
-            LabeledContent(language.text("wallpaper.installed_by_tefvx")) {
+            LabeledContent(language.text("wallpaper.installed_by_MRC")) {
                 Text("\(activeReceipts.reduce(0) { $0 + $1.installedDescriptors.count })")
                     .monospacedDigit()
             }
@@ -487,7 +487,7 @@ struct WallpaperLabView: View {
 #if targetEnvironment(simulator)
         if ProcessInfo.processInfo.arguments.contains("--simulate-wallpaper-data") {
             let root = FileManager.default.temporaryDirectory.appendingPathComponent(
-                "tefvx-Simulated-PosterBoard",
+                "MRC-Simulated-PosterBoard",
                 isDirectory: true
             )
             let descriptors = root.appendingPathComponent(

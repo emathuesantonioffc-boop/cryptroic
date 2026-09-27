@@ -1,4 +1,4 @@
-import SwiftUI
+﻿import SwiftUI
 import UIKit
 import UniformTypeIdentifiers
 import QuickLook
@@ -1703,7 +1703,7 @@ private enum FilePreviewService {
         }
 
         let directory = FileManager.default.temporaryDirectory
-            .appendingPathComponent("tefvx-Preview", isDirectory: true)
+            .appendingPathComponent("MRC-Preview", isDirectory: true)
             .appendingPathComponent(UUID().uuidString, isDirectory: true)
         let destination = directory.appendingPathComponent(sourceURL.lastPathComponent)
         do {

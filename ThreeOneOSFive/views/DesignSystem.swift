@@ -1,7 +1,7 @@
-import SwiftUI
+﻿import SwiftUI
 
 enum AppTheme {
-    // #F90080 pink palette
+    // #F90080 white palette
     static let accent = Color(red: 0.976, green: 0.000, blue: 0.502)
     static let secondaryAccent = Color.white
     static let pageBackground = Color.black

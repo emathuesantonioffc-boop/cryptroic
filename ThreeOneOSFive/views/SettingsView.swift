@@ -1,4 +1,4 @@
-import SwiftUI
+﻿import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
@@ -12,7 +12,7 @@ struct SettingsView: View {
                 Section {
                     HStack(spacing: 14) {
                         VStack(alignment: .leading, spacing: 3) {
-                            Text("tefvx").font(.headline)
+                            Text("MRC").font(.headline)
                             Text(language.text("common.version", appVersion))
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
@@ -64,7 +64,7 @@ struct SettingsView: View {
 
                 Section(language.text("settings.credits")) {
                     creditsRow(
-                        name: "tefvx",
+                        name: "MRC",
                         role: language.text("credit.yangjiii"),
                         url: "https://discord.gg/2dm2zJgkkq"
                     )
