@@ -33,7 +33,7 @@ struct ContentView: View {
         case max    = "FF MAX"
         var launchScheme: String { self == .normal ? "freefireth" : "freefiremax" }
         var patchPrefix: String { self == .normal ? "MRC" : "OGIOS" }
-        var displayColor: Color { self == .normal ? AppTheme.accent : Color(hue: 0.55, saturation: 0.9, brightness: 0.95) }
+        var displayColor: Color { self == .normal ? AppTheme.accent : Color.white }
     }
 
     var body: some View {
