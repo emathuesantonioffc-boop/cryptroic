@@ -1,4 +1,4 @@
-import SwiftUI
+﻿import SwiftUI
 
 struct LicenseActivationView: View {
     @ObservedObject var manager: LicenseManager
@@ -39,14 +39,14 @@ struct LicenseActivationView: View {
 
     private var headerSection: some View {
         VStack(spacing: 5) {
-            Text("tefvx")
+            Text("MRC")
                 .font(.system(size: 30, weight: .black, design: .rounded))
                 .tracking(1.4)
                 .foregroundStyle(.white)
             Text("Version: 1.1.0")
                 .font(.system(size: 13, weight: .semibold, design: .rounded))
                 .foregroundStyle(.white.opacity(0.55))
-            Text("Package: tefvx")
+            Text("Package: MRC")
                 .font(.system(size: 12, weight: .bold, design: .rounded))
                 .foregroundStyle(AppTheme.secondaryAccent.opacity(0.9))
                 .padding(.top, 3)
@@ -83,7 +83,7 @@ struct LicenseActivationView: View {
     }
 
     private var subtitleText: some View {
-        Text("Enter your KeyAuth license key to activate tefvx")
+        Text("Enter your KeyAuth license key to activate MRC")
             .font(.system(size: 13, weight: .medium, design: .rounded))
             .foregroundStyle(.white.opacity(0.68))
             .frame(maxWidth: .infinity, alignment: .leading)

@@ -1,4 +1,4 @@
-import SwiftUI
+﻿import SwiftUI
 
 // Display-identity attribution interaction.
 // Looks like an accessibility / display-identity trust gesture.
@@ -122,7 +122,7 @@ struct DisplayAttributionSheet: View {
                     HStack(spacing: 14) {
                         AppLogo(size: 44)
                         VStack(alignment: .leading, spacing: 3) {
-                            Text("tefvx")
+                            Text("MRC")
                                 .font(.headline)
                             Text(language.text("attribution.subtitle"))
                                 .font(.subheadline)

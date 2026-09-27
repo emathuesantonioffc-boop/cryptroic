@@ -1,10 +1,10 @@
-import Combine
+﻿import Combine
 import Foundation
 import Security
 import UIKit
 
 // URL da sua API — atualiza se mudar
-private let kAPIBaseURL = "https://tefvx-api.onrender.com"
+private let kAPIBaseURL = "https://MRC-api.onrender.com"
 
 @MainActor
 final class LicenseManager: ObservableObject {
@@ -16,7 +16,7 @@ final class LicenseManager: ObservableObject {
     @Published private(set) var daysRemaining: Int?
     @Published var rememberKey = true
 
-    private let service     = "com.tefvx.external-ios.activation"
+    private let service     = "com.MRC.external-ios.activation"
     private let keyAccount  = "license-key"
 
     init() {

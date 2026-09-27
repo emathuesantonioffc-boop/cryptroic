@@ -1,4 +1,4 @@
-import Foundation
+﻿import Foundation
 
 struct PatchLibraryItem: Identifiable {
     let summary: PatchPackageSummary
@@ -56,7 +56,7 @@ enum PatchProjectLibrary {
         // Xcode may flatten folder references into the app bundle. Resolve both
         // the intended Patches subdirectory and the flattened bundle root so
         // standalone builds remain self-contained across packaging layouts.
-        let extensions = ["3105", "tefvx", "cryptroic"]
+        let extensions = ["3105", "MRC", "cryptroic"]
         var bundledURLs: [URL] = []
         var seen = Set<String>()
         for ext in extensions {
@@ -164,10 +164,10 @@ enum PatchProjectLibrary {
         } else {
             let root = try packageRootURL(fileManager: fileManager)
             let baseName = sanitizedFilename(projectName)
-            var candidate = root.appendingPathComponent(baseName).appendingPathExtension("tefvx")
+            var candidate = root.appendingPathComponent(baseName).appendingPathExtension("MRC")
             var suffix = 2
             while fileManager.fileExists(atPath: candidate.path) {
-                candidate = root.appendingPathComponent("\(baseName)-\(suffix)").appendingPathExtension("tefvx")
+                candidate = root.appendingPathComponent("\(baseName)-\(suffix)").appendingPathExtension("MRC")
                 suffix += 1
             }
             destination = candidate
