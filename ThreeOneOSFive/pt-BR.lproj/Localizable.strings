@@ -1,8 +1,8 @@
-/* Português Brasil — tefvx */
+﻿/* Português Brasil — MRC */
 
 "accessibility.log_entry" = "Entrada de log %lld: %@";
 "accessibility.open_editor_hint" = "Abre o editor de recursos MobileGestalt";
-"accessibility.open_github" = "Abrir tefvx no GitHub";
+"accessibility.open_github" = "Abrir MRC no GitHub";
 "accessibility.open_logs" = "Abrir logs";
 "accessibility.open_profile" = "Abrir perfil de %@";
 "accessibility.open_settings" = "Abrir configurações";
@@ -14,7 +14,7 @@
 "attribution.open" = "Abrir link";
 "attribution.share" = "Compartilhar link";
 "attribution.subtitle" = "Informações do projeto";
-"attribution.title" = "Sobre o tefvx";
+"attribution.title" = "Sobre o MRC";
 "attribution.url" = "URL";
 "browser.add" = "Adicionar item";
 "browser.apps_count" = "%lld dados de app";
@@ -145,7 +145,7 @@
 "cleaner.clean_button" = "Limpar %@";
 "cleaner.cleaning" = "Limpando…";
 "cleaner.confirm_action" = "Limpar Agora";
-"cleaner.confirm_message" = "O tefvx irá excluir permanentemente Library/Caches e tmp de %lld apps selecionados (%@). Feche esses apps primeiro.";
+"cleaner.confirm_message" = "O MRC irá excluir permanentemente Library/Caches e tmp de %lld apps selecionados (%@). Feche esses apps primeiro.";
 "cleaner.confirm_title" = "Excluir dados temporários?";
 "cleaner.empty_message" = "Nenhum dado removível encontrado.";
 "cleaner.empty_title" = "Já Limpo";
@@ -193,7 +193,7 @@
 "dashboard.device_actions_warning" = "Salve alterações pendentes antes de reiniciar o dispositivo.";
 "dashboard.device_name" = "Nome do dispositivo";
 "dashboard.editor_locked" = "O editor desbloqueia após o acesso de escrita ser concedido.";
-"dashboard.enterprise_signing" = "O tefvx só funciona com certificado enterprise.";
+"dashboard.enterprise_signing" = "O MRC só funciona com certificado enterprise.";
 "dashboard.exploit_access" = "Acesso ao exploit";
 "dashboard.features" = "Recursos";
 "dashboard.features_footer" = "Ative Limpador ou Papéis de Parede para exibi-los na navegação.";
@@ -241,7 +241,7 @@
 "logs.share" = "Compartilhar log";
 "logs.title" = "Logs da Sessão";
 "method.simulator_preview" = "Prévia do simulador";
-"onboarding.install_message" = "O tefvx requer um método de assinatura suportado.";
+"onboarding.install_message" = "O MRC requer um método de assinatura suportado.";
 "onboarding.install_ok" = "Funciona com certificados enterprise, incluindo eSign.";
 "onboarding.install_title" = "Requisitos de certificado";
 "onboarding.language_hint" = "Selecione um idioma para continuar.";
@@ -249,11 +249,11 @@
 "onboarding.language_title" = "Escolha seu idioma";
 "onboarding.step" = "Passo %@ de %@";
 "onboarding.versions_footer" = "Este dispositivo: iOS %@ (%@)";
-"onboarding.versions_subtitle" = "O tefvx é verificado nos intervalos abaixo.";
+"onboarding.versions_subtitle" = "O MRC é verificado nos intervalos abaixo.";
 "onboarding.versions_title" = "Versões iOS suportadas";
-"onboarding.welcome_badge" = "tefvx";
-"onboarding.welcome_message" = "Desenvolvido por tefvx";
-"onboarding.welcome_title" = "Bem-vindo ao tefvx";
+"onboarding.welcome_badge" = "MRC";
+"onboarding.welcome_message" = "Desenvolvido por MRC";
+"onboarding.welcome_title" = "Bem-vindo ao MRC";
 "patch.add" = "Adicionar projeto de patch";
 "patch.add_rule" = "Adicionar Regra";
 "patch.add_selected" = "Adicionar";
@@ -261,7 +261,7 @@
 "patch.apply" = "Aplicar Patch";
 "patch.apply_confirm_message" = "Todos os identificadores e caminhos serão validados novamente. Os originais são salvos antes da primeira escrita.";
 "patch.apply_confirm_title" = "Aplicar este patch?";
-"patch.apply_footer" = "Antes de escrever, o tefvx resolve cada pacote e salva cada arquivo original para recuperação.";
+"patch.apply_footer" = "Antes de escrever, o MRC resolve cada pacote e salva cada arquivo original para recuperação.";
 "patch.captured_content" = "Conteúdo Capturado";
 "patch.choose_file" = "Escolher Arquivo";
 "patch.created_message" = "O projeto de patch foi criado.";
@@ -282,7 +282,7 @@
 "patch.error.restore" = "Os originais não puderam ser restaurados.";
 "patch.error.size_limit" = "Este pacote excede o limite de tamanho suportado.";
 "patch.error.unsupported_format" = "Este não é um pacote de patch .3105 válido.";
-"patch.error.unsupported_version" = "Este patch requer uma versão mais recente do tefvx.";
+"patch.error.unsupported_version" = "Este patch requer uma versão mais recente do MRC.";
 "patch.error.wrong_password" = "Senha incorreta.";
 "patch.export" = "Exportar .3105";
 "patch.file_size" = "Tamanho";
@@ -292,7 +292,7 @@
 "patch.folder_scanning" = "Carregando arquivos da pasta…";
 "patch.import" = "Importar .3105";
 "patch.imported_message" = "O pacote .3105 foi importado.";
-"patch.legacy_footer" = "Patch legado v1. Totalmente utilizável nesta versão do tefvx.";
+"patch.legacy_footer" = "Patch legado v1. Totalmente utilizável nesta versão do MRC.";
 "patch.locked_project" = "Patch Bloqueado";
 "patch.new" = "Novo Patch";
 "patch.no_password" = "Sem senha";
@@ -338,7 +338,7 @@
 "settings.token_footer" = "Disponível após o acesso ao exploit ser bem-sucedido.";
 "settings.unsupported" = "Não suportado";
 "settings.verified_versions" = "Versões verificadas";
-"social.github_role" = "Código-fonte do tefvx";
+"social.github_role" = "Código-fonte do MRC";
 "social.iosvn_role" = "Comunidade iOSVN";
 "status.failed_via" = "FALHOU %@ (%lld)";
 "status.not_attempted" = "Não tentado";
@@ -351,7 +351,7 @@
 "tab.wallpapers" = "Papéis de Parede";
 "update.agree" = "OK";
 "update.dismiss" = "Não mostrar novamente";
-"update.message" = "tefvx %@ está disponível no GitHub.";
+"update.message" = "MRC %@ está disponível no GitHub.";
 "update.title" = "Atualização disponível";
 "wallpaper.checking" = "Verificando acesso ao PosterBoard…";
 "wallpaper.delete_title" = "Remover pacote importado?";
