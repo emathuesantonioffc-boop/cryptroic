@@ -1,10 +1,10 @@
-#!/usr/bin/env bash
+﻿#!/usr/bin/env bash
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 BUILD_DIR="$ROOT/build"
-ARCHIVE="$BUILD_DIR/tefvx.xcarchive"
-IPA="$BUILD_DIR/tefvx.ipa"
+ARCHIVE="$BUILD_DIR/MRC.xcarchive"
+IPA="$BUILD_DIR/MRC.ipa"
 
 rm -rf "$BUILD_DIR"
 mkdir -p "$BUILD_DIR"
@@ -32,8 +32,8 @@ done
 
 /usr/libexec/PlistBuddy -c "Set :CFBundleExecutable Cryptroic" "$APP/Info.plist" || true
 /usr/libexec/PlistBuddy -c "Set :CFBundlePackageType APPL" "$APP/Info.plist" || true
-/usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName tefvx" "$APP/Info.plist" || true
-/usr/libexec/PlistBuddy -c "Set :CFBundleName tefvx" "$APP/Info.plist" || true
+/usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName MRC" "$APP/Info.plist" || true
+/usr/libexec/PlistBuddy -c "Set :CFBundleName MRC" "$APP/Info.plist" || true
 mkdir -p "$BUILD_DIR/Payload"
 cp -R "$APP" "$BUILD_DIR/Payload/"
 (

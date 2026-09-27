@@ -1,8 +1,8 @@
-#!/usr/bin/env bash
+﻿#!/usr/bin/env bash
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
-IPA="${1:-$ROOT/build/tefvx.ipa}"
+IPA="${1:-$ROOT/build/MRC.ipa}"
 
 if ! command -v unzip >/dev/null 2>&1; then
   echo "Error: unzip is required." >&2
@@ -14,7 +14,7 @@ if [[ ! -f "$IPA" ]]; then
   "$ROOT/build_unsigned.sh"
 fi
 
-WORK_DIR="$(mktemp -d "${TMPDIR:-/tmp}/tefvx-esign.XXXXXX")"
+WORK_DIR="$(mktemp -d "${TMPDIR:-/tmp}/MRC-esign.XXXXXX")"
 trap 'rm -rf "$WORK_DIR"' EXIT
 
 unzip -q "$IPA" -d "$WORK_DIR/unpacked"
