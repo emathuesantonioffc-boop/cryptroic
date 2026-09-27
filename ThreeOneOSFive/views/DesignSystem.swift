@@ -1,12 +1,12 @@
 ﻿import SwiftUI
 
 enum AppTheme {
-    // #F90080 white palette
-    static let accent = Color(red: 0.976, green: 0.000, blue: 0.502)
+    // #FFFFFF white palette
+    static let accent = Color.white
     static let secondaryAccent = Color.white
     static let pageBackground = Color.black
     static let consoleBackground = Color(red: 0.035, green: 0.008, blue: 0.030)
-    static let referenceCard = Color(red: 0.16, green: 0.012, blue: 0.080).opacity(0.78)
+    static let referenceCard = Color(red: 0.16, green: 0.16, blue: 0.16).opacity(0.78)
     static let pageInset: CGFloat = 16
     static let rowIconSize: CGFloat = 17
     static let rowIconFrame: CGFloat = 28
