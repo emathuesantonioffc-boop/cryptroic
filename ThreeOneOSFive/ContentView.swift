@@ -1,4 +1,4 @@
-import SwiftUI
+﻿import SwiftUI
 import UIKit
 import AVFoundation
 
@@ -32,7 +32,7 @@ struct ContentView: View {
         case normal = "FF NORMAL"
         case max    = "FF MAX"
         var launchScheme: String { self == .normal ? "freefireth" : "freefiremax" }
-        var patchPrefix: String { self == .normal ? "tefvx" : "OGIOS" }
+        var patchPrefix: String { self == .normal ? "MRC" : "OGIOS" }
         var displayColor: Color { self == .normal ? AppTheme.accent : Color(hue: 0.55, saturation: 0.9, brightness: 0.95) }
     }
 
@@ -76,7 +76,7 @@ struct ContentView: View {
     private var brandHeader: some View {
         HStack(spacing: 14) {
             VStack(alignment: .leading, spacing: 3) {
-                Text("tefvx")
+                Text("MRC")
                     .font(.system(size: 25, weight: .black, design: .rounded))
                     .tracking(3)
                     .foregroundStyle(.white)
@@ -274,7 +274,7 @@ struct ContentView: View {
                 .tracking(1.2)
                 .foregroundStyle(.white.opacity(0.72))
             Spacer()
-            Text("tefvx • PRONTO")
+            Text("MRC • PRONTO")
                 .font(.system(size: 9, weight: .bold, design: .rounded))
                 .foregroundStyle(AppTheme.accent.opacity(0.8))
         }
@@ -286,7 +286,7 @@ struct ContentView: View {
 
     private var developerCredits: some View {
         VStack(spacing: 10) {
-            Text("Desenvolvido por tefvx")
+            Text("Desenvolvido por MRC")
                 .font(.system(size: 11, weight: .bold, design: .rounded))
                 .foregroundStyle(.white.opacity(0.72))
                 .multilineTextAlignment(.center)
@@ -296,7 +296,7 @@ struct ContentView: View {
                 .foregroundStyle(AppTheme.secondaryAccent.opacity(0.85))
 
             HStack(spacing: 10) {
-                channelButton(title: "tefvx Discord", url: "https://discord.gg/2dm2zJgkkq")
+                channelButton(title: "MRC Discord", url: "https://discord.gg/2dm2zJgkkq")
             }
         }
         .frame(maxWidth: .infinity)
@@ -555,7 +555,7 @@ private struct PatchUnlockPrompt: View {
                             .foregroundStyle(.red)
                     }
                 } footer: {
-                    Text("Digite a senha uma vez para desbloquear este pacote tefvx neste dispositivo.")
+                    Text("Digite a senha uma vez para desbloquear este pacote MRC neste dispositivo.")
                 }
             }
             .navigationTitle("Unlock package")
