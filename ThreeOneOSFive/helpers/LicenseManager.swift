@@ -3,8 +3,8 @@ import Foundation
 import Security
 import UIKit
 
-// URL da sua API — atualiza se mudar
-private let kAPIBaseURL = "https://MRC-api.onrender.com"
+// Senha de acesso — troca aqui para mudar
+private let kAccessPassword = "MRC"
 
 @MainActor
 final class LicenseManager: ObservableObject {
@@ -21,7 +21,7 @@ final class LicenseManager: ObservableObject {
 
     init() {
         if let saved = storedKey(), !saved.isEmpty {
-            Task { await verifyOnline(key: saved, silent: true) }
+            verifyPassword(key: saved, silent: true)
         }
     }
 
@@ -34,20 +34,20 @@ final class LicenseManager: ObservableObject {
         guard let saved = storedKey(), !saved.isEmpty else {
             isActive = false; return
         }
-        Task { await verifyOnline(key: saved, silent: true) }
+        verifyPassword(key: saved, silent: true)
     }
 
     func activate(key: String, isAutoLogin: Bool = false) {
-        let trimmed = key.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        let trimmed = key.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
-        Task { await verifyOnline(key: trimmed, silent: false) }
+        verifyPassword(key: trimmed, silent: false)
     }
 
     func rememberedKey() -> String? { storedKey() }
 
     func refresh() {
         guard let saved = storedKey(), !saved.isEmpty else { return }
-        Task { await verifyOnline(key: saved, silent: false) }
+        verifyPassword(key: saved, silent: false)
     }
 
     func deactivate() {
@@ -58,47 +58,23 @@ final class LicenseManager: ObservableObject {
         daysRemaining = nil
     }
 
-    // MARK: - API
+    // MARK: - Verificação local de senha
 
-    private func verifyOnline(key: String, silent: Bool) async {
+    private func verifyPassword(key: String, silent: Bool) {
         if !silent { isBusy = true }
 
-        let deviceID = UIDevice.current.identifierForVendor?.uuidString ?? "unknown"
-        let body: [String: String] = ["key": key, "device_id": deviceID]
+        let valid = key == kAccessPassword
 
-        guard let url = URL(string: "\(kAPIBaseURL)/api/verify"),
-              let bodyData = try? JSONSerialization.data(withJSONObject: body) else {
-            if !silent { message = "Erro ao conectar" }
-            if !silent { isBusy = false }
-            return
-        }
+        isActive      = valid
+        expiresAt     = nil
+        daysRemaining = nil
 
-        var req = URLRequest(url: url, timeoutInterval: 15)
-        req.httpMethod = "POST"
-        req.httpBody   = bodyData
-        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        do {
-            let (data, _) = try await URLSession.shared.data(for: req)
-            let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-            let valid = json?["valid"] as? Bool ?? false
-            let msg   = json?["message"] as? String ?? ""
-            let exp   = json?["expires_at"] as? String
-            let days  = json?["days_remaining"] as? Int
-
-            isActive      = valid
-            expiresAt     = exp
-            daysRemaining = days
-
-            if valid {
-                if rememberKey { saveKey(key) }
-                message = days != nil ? "Key válida — \(days!) dia(s) restante(s)" : "Key válida"
-            } else {
-                if !silent { message = msg }
-                deleteKey()
-            }
-        } catch {
-            if !silent { message = "Sem conexão — tente novamente" }
+        if valid {
+            if rememberKey { saveKey(key) }
+            if !silent { message = "Senha correta — bem-vindo!" }
+        } else {
+            if !silent { message = "Senha incorreta" }
+            deleteKey()
         }
 
         if !silent { isBusy = false }
